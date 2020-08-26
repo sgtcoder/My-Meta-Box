@@ -1,3 +1,32 @@
+# My Meta Box
+> PHP Composer for WordPress Admin Meta Boxes.
+
+[![GitHub](https://img.shields.io/github/license/sgtcoder/My-Meta-Box.svg)](https://opensource.org/licenses/GPL-3.0)
+[![GitHub last commit](https://img.shields.io/github/last-commit/sgtcoder/My-Meta-Box.svg)](https://github.com/sgtcoder/My-Meta-Box/commits/master)
+[![GitHub tag](https://img.shields.io/github/tag/sgtcoder/My-Meta-Box.svg)](https://github.com/sgtcoder/My-Meta-Box/tags)
+
+## Overview
+Pending
+
+## Installation
+
+## Setup
+
+## Future
+
+## Meta
+
+## Contributing
+
+1. Fork it (<https://github.com/sgtcoder/My-Meta-Box/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
+
+## Questions
+If you have any questions or feedback, please email me at usmccoder@gmail.com
+
 My Wordpress Meta box Class
 =======================
 Contributors: bainternet
