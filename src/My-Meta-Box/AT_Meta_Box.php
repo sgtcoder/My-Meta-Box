@@ -30,6 +30,7 @@
  */
 
 if ( ! class_exists( 'AT_Meta_Box') ) :
+namespace AT_Meta_Box;
 
 /**
  * All Types Meta Box class.
