@@ -29,7 +29,6 @@
  * @package MY Meta Box Class
  */
 
-if ( ! class_exists( 'AT_Meta_Box') ) :
 namespace AT_Meta_Box;
 
 /**
@@ -122,18 +121,9 @@ class AT_Meta_Box {
     $this->_fields = $this->_meta_box['fields'];
     $this->_Local_images = (isset($meta_box['local_images'])) ? true : false;
     $this->add_missed_values();
-    if (isset($meta_box['use_with_theme']))
-      if ($meta_box['use_with_theme'] === true){
-        $this->SelfPath = get_stylesheet_directory_uri() . '/meta-box-class';
-      }elseif($meta_box['use_with_theme'] === false){
-        $this->SelfPath = plugins_url( 'meta-box-class', plugin_basename( dirname( __FILE__ ) ) );
-      }else{
-        $this->SelfPath = $meta_box['use_with_theme'];
-      }
-    else{
-      $this->SelfPath = plugins_url( 'meta-box-class', plugin_basename( dirname( __FILE__ ) ) );
-    }
-    
+
+    $this->SelfPath = get_site_url(null, str_replace(get_home_path(), '', dirname(__FILE__)));
+
     // Add metaboxes
     add_action( 'add_meta_boxes', array( $this, 'add' ) );
     //add_action( 'wp_insert_post', array( $this, 'save' ) );
@@ -1874,4 +1864,3 @@ class AT_Meta_Box {
     load_textdomain( 'mmb', dirname(__FILE__) . '/lang/' . get_locale() .'.mo' );
   }
 } // End Class
-endif; // End Check Class Exists
