@@ -122,7 +122,7 @@ class AT_Meta_Box {
     $this->_Local_images = (isset($meta_box['local_images'])) ? true : false;
     $this->add_missed_values();
 
-    $this->SelfPath = get_site_url(null, str_replace(get_home_path(), '', dirname(__FILE__)));
+    $this->SelfPath = get_site_url(null, str_replace(ABSPATH, '', dirname(__FILE__)));
 
     // Add metaboxes
     add_action( 'add_meta_boxes', array( $this, 'add' ) );
