@@ -247,7 +247,7 @@ class AT_Meta_Box {
     
     if ( $this->has_field( 'date' ) && $this->is_edit_page() ) {
       // Enqueu JQuery UI, use proper version.
-	  $plugin_path = $this->SelfPath;
+    $plugin_path = $this->SelfPath;
       wp_enqueue_style( 'at-jquery-ui-css', $plugin_path .'/js/jquery-ui/jquery-ui.css' );
       wp_enqueue_script( 'jquery-ui');
       wp_enqueue_script( 'jquery-ui-datepicker');
@@ -973,18 +973,17 @@ class AT_Meta_Box {
     }
     
     foreach ( $this->_fields as $field ) {
-      
+      $default = $field['default']??'';
+
       $name = $field['id'];
       $type = $field['type'];
       $old = get_post_meta( $post_id, $name, ! $field['multiple'] );
-      $new = ( isset( $_POST[$name] ) ) ? $_POST[$name] : ( ( $field['multiple'] ) ? array() : '' );
-            
-
+      $new = (isset($_POST[$name]) && $_POST[$name]!="") ? $_POST[$name] : ( ( $field['multiple'] ) ? array() : $default );     
       // Validate meta value
       if ( class_exists( 'at_Meta_Box_Validate' ) && method_exists( 'at_Meta_Box_Validate', $field['validate_func'] ) ) {
         $new = call_user_func( array( 'at_Meta_Box_Validate', $field['validate_func'] ), $new );
       }
-      
+
       //skip on Paragraph field
       if ($type != "paragraph"){
 
@@ -1345,6 +1344,7 @@ class AT_Meta_Box {
   public function addHidden($id,$args,$repeater=false){
     $new_field = array('type' => 'hidden','id'=> $id,'std' => '','desc' => '','style' =>'','name' => 'Text Field');
     $new_field = array_merge($new_field, $args);
+
     if(false === $repeater){
       $this->_fields[] = $new_field;
     }else{
