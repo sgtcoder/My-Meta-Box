@@ -337,3 +337,73 @@ jQuery(document).ready(function($){
   simplePanelmedia = simplePanelupload.getInstance();
   simplePanelmedia.hooks();
 });
+
+
+jQuery(document).ready(function() {
+  jQuery('.remove_row').click(function() {
+      if (jQuery(this).parent().hasClass('re-control'))
+        jQuery(this).parent().parent().remove();
+      else
+        jQuery(this).parent().remove();
+  });
+
+
+  $('.copyToClipboard').click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      copyToClipboard($(this));
+  });
+});
+
+
+
+
+function copyToClipboard(object) {
+    var success   = true,
+    range     = document.createRange(),
+    input     = object,
+    selection;
+
+
+    var the_text = input.html();
+
+    // For IE.
+    if (window.clipboardData) {
+        window.clipboardData.setData("Text", the_text);
+    } else {
+        // Create a temporary element off screen.
+        var tmpElem = $('<div>');
+            tmpElem.css({
+            position: "absolute",
+            left:     "-1000px",
+            top:      "-1000px",
+        });
+        // Add the input value to the temp element.
+        tmpElem.text(the_text);
+        $("body").append(tmpElem);
+        // Select temp element.
+        range.selectNodeContents(tmpElem.get(0));
+        selection = window.getSelection ();
+        selection.removeAllRanges ();
+        selection.addRange (range);
+        // Lets copy.
+        try {
+            success = document.execCommand ("copy", false, null);
+        }
+        catch (e) {
+            copyToClipboardFF(the_text);
+        }
+        if (success) {
+            // remove temp element.
+            tmpElem.remove();
+
+            // show notification
+            toastr["success"](object.data('tooltip'), "Success")
+        }
+    }
+}
+
+
+function copyToClipboardFF(text) {
+      window.prompt ("Copy to clipboard: Ctrl C, Enter", text);
+}

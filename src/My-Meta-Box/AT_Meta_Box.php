@@ -154,9 +154,16 @@ class AT_Meta_Box {
      */
     global $typenow;
     if (in_array($typenow,$this->_meta_box['pages']) && $this->is_edit_page()){
+
+      // Styles
+      wp_enqueue_style( 'toastr.js', 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css' );
+
       // Enqueue Meta Box Style
       wp_enqueue_style( 'at-meta-box', $plugin_path . '/css/meta-box.css' );
-      
+
+      // Scripts      
+      wp_enqueue_script( 'toastr.js', 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js', array( 'jquery' ), null, true );
+
       // Enqueue Meta Box Scripts
       wp_enqueue_script( 'at-meta-box', $plugin_path . '/js/meta-box.js', array( 'jquery' ), null, true );
 
@@ -377,7 +384,7 @@ class AT_Meta_Box {
            $mmm =  isset($me[$field['fields'][0]['id']])? $me[$field['fields'][0]['id']]: "";
            if ( in_array( $field['fields'][0]['type'], array('image','file') ) )
             $mmm = $c +1 ;
-           echo '<div class="at-repater-block">'.$mmm.'<br/><table class="repeater-table" style="display: none;">';
+           echo '<div class="at-repater-block"><div class="repeater_header">'.$mmm.'</div><table class="repeater-table" style="display: none;">';
            if ($field['inline']){
              echo '<tr class="at-inline" VALIGN="top">';
            }
@@ -408,7 +415,7 @@ class AT_Meta_Box {
 
         echo'
         <span class="re-control at-re-toggle"><img src="'.$plugin_path.'/images/edit.png" alt="Edit" title="Edit"/></span> 
-        <span class="re-control"><img src="'.$plugin_path.'/images/remove.png" alt="'.__('Remove','mmb').'" title="'.__('Remove','mmb').'" id="remove-'.$field['id'].'"></span>
+        <span class="re-control"><img src="'.$plugin_path.'/images/remove.png" alt="'.__('Remove','mmb').'" title="'.__('Remove','mmb').'" id="remove-'.$field['id'].'" class="remove_row"></span>
         <span class="re-control-clear"></span></div>';
         $c = $c + 1;
         }
@@ -420,7 +427,7 @@ class AT_Meta_Box {
     }else{
       echo 'http://i.imgur.com/w5Tuc.png';
     }
-    echo '" alt="'.__('Add','mmb').'" title="'.__('Add','mmb').'" id="add-'.$field['id'].'"><br/></div>';
+    echo '" alt="'.__('Add','mmb').'" title="'.__('Add','mmb').'" id="add-'.$field['id'].'" class="add_row"><br/></div>';
     
     //create all fields once more for js function and catch with object buffer
     ob_start();
@@ -447,7 +454,7 @@ class AT_Meta_Box {
     if ($field['inline']){
       echo '</tr>';
     } 
-    echo '</table><img src="'.$plugin_path.'/images/remove.png" alt="'.__('Remove','mmb').'" title="'.__('Remove','mmb').'" id="remove-'.$field['id'].'"></div>';
+    echo '</table>';
     $counter = 'countadd_'.$field['id'];
     $js_code = ob_get_clean ();
     $js_code = str_replace("\n","",$js_code);
@@ -456,18 +463,12 @@ class AT_Meta_Box {
     $js_code = str_replace("CurrentCounter","' + ".$counter." + '",$js_code);
     echo '<script>
         jQuery(document).ready(function() {
-          var '.$counter.' = '.$c.';
-          jQuery("#add-'.$field['id'].'").live(\'click\', function() {
-            '.$counter.' = '.$counter.' + 1;
-            jQuery(this).before(\''.$js_code.'\');            
-            update_repeater_fields();
-          });
-              jQuery("#remove-'.$field['id'].'").live(\'click\', function() {
-                  if (jQuery(this).parent().hasClass("re-control"))
-                    jQuery(this).parent().parent().remove();
-                  else
-                    jQuery(this).parent().remove();
-              });
+            var '.$counter.' = '.$c.';
+            jQuery("#add-'.$field['id'].'").click(function() {
+              '.$counter.' = '.$counter.' + 1;
+              jQuery(this).before(\''.$js_code.'\');            
+              update_repeater_fields();
+            });
           });
         </script>';
     echo '<br/><style>
@@ -742,7 +743,7 @@ class AT_Meta_Box {
     
     $value['url'] = isset($meta['src'])? $meta['src'] : $value['url']; //backwords capability
     $has_image    = empty($value['url'])? false : true;
-    $w            = isset($field['width'])? $field['width'] : 'auto';
+    $w            = isset($field['width'])? $field['width'] : '150px';
     $h            = isset($field['height'])? $field['height'] : 'auto';
     $PreviewStyle = "style='width: $w; height: $h;". ( (!$has_image)? "display: none;'": "'");
     $id           = $field['id'];
