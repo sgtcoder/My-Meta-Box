@@ -8,8 +8,8 @@
 
 /* =Common Rules for all fields.
 ----------------------------------------------- */
-.form-table td.at-field{ border: 1px solid #DDD; padding: 10px 10px 20px; margin: 0px; font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; }
-.at-label { margin: 0 0 5px 0; padding: 5px 0 0 0; 
+.form-table td.at-field{ border: 1px solid #DDD; padding: 0px 10px 10px; margin: 0px; font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; }
+.at-label { margin: 0 0 0px 0; padding: 5px 0 0 0; 
 						font: 20px/31px "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue", Helvetica, Arial, sans-serif; 
 						text-shadow: rgba(255, 255, 255, 1) 0 1px 0; width: auto; }
 .at-radio-label{ padding-right: 10px; }				
@@ -59,4 +59,34 @@
 /* code Editor */
 .CodeMirror{
 	background-color: #fff;
+}
+
+
+/** ADDONS **/
+
+table.repeater-table{
+	width: 100%;
+}
+
+.add_row, .remove_row{
+	margin: 10px 5px;
+	cursor: pointer;
+}
+
+div.repeater_header {
+    padding: 12px 12px 0px 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.form-table td {
+	line-height: 1;
+}
+
+.copyToClipboard{
+	cursor: pointer;
+}
+
+.text-danger {
+    color: #dc3545!important;
 }
